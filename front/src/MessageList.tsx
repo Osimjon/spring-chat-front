@@ -31,12 +31,12 @@ export function MessageList() {
     return (
 
         <div>
-            <Container>
-                <List sx={{m: 3}}>
+            <Container sx={{minHeight: "80vh"}}>
+                <List sx={{m: 3}} >
                     {messages?.map((message: messageType) => (
                         <ListItem key={message.id}>
                             <Paper elevation={1} sx={{p: 1,paddingLeft:2 , display: 'inline-flex', paddingRight: 3}}>
-                                <Avatar sx={{bgcolor: lightBlue [400], maxHeight: 27, maxWidth:27 }}>{message.userName[0]}</Avatar>
+                                <Avatar sx={{ maxHeight: 27, maxWidth:27, bgcolor:lightBlue[400] }}>{message.userName[0]}</Avatar>
                                 <Box sx={{marginLeft: 2}}>
                                     {message.userName}
                                     <br/>
