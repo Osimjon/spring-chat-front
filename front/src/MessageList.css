@@ -1,0 +1,4 @@
+.smooth-scroll-list {
+    scroll-behavior: smooth; /* Добавьте стиль для плавного скролла */
+    transition: scroll-behavior 0.5s; /* Длительность анимации, настраиваемая по вашему усмотрению */
+}
