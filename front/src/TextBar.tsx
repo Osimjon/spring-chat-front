@@ -1,16 +1,15 @@
-import React, {ChangeEvent, useState} from "react";
-import {Button, Container, Input, useTheme} from "@mui/material";
+import React, { ChangeEvent, useState } from "react";
+import { Button, Container, Input, useTheme } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
-import {useMutation, useQueryClient} from "react-query";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
+import { useMutation, useQueryClient } from "react-query";
 
-export function TextBar() {
+type TextBarProps = {
+    userName: string;
+};
 
+export function TextBar({ userName }: TextBarProps) {
     const theme = useTheme();
-
     const [message, setMessage] = useState("");
-    const [userName, setUserName] = useState("Admin");
     const queryClient = useQueryClient();
 
     const sendMessageMutation = useMutation(
@@ -27,27 +26,28 @@ export function TextBar() {
             onSuccess: async () => {
                 //
             },
-            onError: ()=>{
+            onError: () => {
                 //
             }
         }
     )
 
-
     const handleSendMessage = () => {
-        sendMessageMutation.mutate({message, userName,});
-        setMessage("");
+        if (userName && message) {
+            sendMessageMutation.mutate({ message, userName });
+            setMessage("");
+        }
     };
 
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-        return setMessage(e.currentTarget.value);
+        setMessage(e.currentTarget.value);
     }
 
     return <div>
         <Container maxWidth="xl">
-            <Input style={{width: "50%", height: "40px"}} onChange={handleInput} value={message}  autoFocus />
+            <Input style={{ width: "50%", height: "40px" }} onChange={handleInput} value={message} autoFocus />
             <Button variant="contained" onClick={handleSendMessage}>
-                <SendIcon/>
+                <SendIcon />
             </Button>
         </Container>
     </div>

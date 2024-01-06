@@ -1,9 +1,19 @@
-import {AppBar, Container, Toolbar, Typography, useTheme} from "@mui/material";
-import React from "react";
+import {AppBar, Container, Input, Toolbar, Typography, useTheme} from "@mui/material";
+import React, {ChangeEvent} from "react";
 import ChatIcon from "@mui/icons-material/Chat";
 
-export function NavBar(){
+type UserNameInputProps = {
+    onUserNameChange: (newUserName: string) => void;
+};
+
+export function NavBar({ onUserNameChange }: UserNameInputProps){
     const theme = useTheme();
+
+    const handleInput=(e: ChangeEvent<HTMLInputElement>)=>{
+        const newUserName = e.target.value;
+        onUserNameChange(newUserName);
+    }
+
 
     return <>
         <AppBar position="static" >
@@ -24,6 +34,10 @@ export function NavBar(){
                     >
                         CHAT
                     </Typography>
+                    <Container maxWidth="xl">
+                        <a>Your name:</a>
+                        <Input style={{width: "50%", height: "40px"}} onChange={handleInput} autoFocus/>
+                    </Container>
                 </Toolbar>
             </Container>
         </AppBar>

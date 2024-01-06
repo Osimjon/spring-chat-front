@@ -1,6 +1,6 @@
 import './App.css';
 import {MessageList} from "./MessageList";
-import React from "react";
+import React, {useState} from "react";
 import {QueryClient, QueryClientProvider} from "react-query";
 import {NavBar} from "./NavBar";
 import {TextBar} from "./TextBar";
@@ -25,14 +25,22 @@ const theme = createTheme({
     }
 })
 function App() {
+    const [userName, setUserName] = useState("");
+
+    const onUserNameChange = (newUserName:string) => {
+        if(newUserName){
+            setUserName(newUserName);
+        }
+
+    }
 
   return (
       <QueryClientProvider client={queryClient}>
           <ThemeProvider theme={theme}>
               <div className="App">
-                  <NavBar/>
+                  <NavBar onUserNameChange={onUserNameChange}/>
                   <MessageList/>
-                  <TextBar/>
+                  <TextBar userName={userName}/>
               </div>
           </ThemeProvider>
       </QueryClientProvider>
